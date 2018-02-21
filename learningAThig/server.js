@@ -86,9 +86,18 @@ client.query("SELECT table_name FROM information_schema.tables WHERE table_schem
 		//bulshit start hear
 		let i = 0;
 		while(data.rows[i] != null){
-			console.log(i)
+			console.log( "i: " + i);
 			console.log(data.rows[i].table_name);
 			i = i + 1;
+
+			//stay strong more bullshit ahead
+			client.query(`select column_name from information_schema.columns where table_name='${data.rows[i].table_name}';`)
+				.then(function(datanew){
+					console.log(datanew.rows);
+				})
+				.catch(function(error){
+					console.log(error);
+				});
 		}
 	})
 	.catch(function(error){

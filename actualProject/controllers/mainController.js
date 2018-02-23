@@ -48,12 +48,24 @@ const about = (req, res) =>{
 /*----------  searching for a doc in the about collection  ----------*/
 const search = (req, res) =>{
 	//making sure i know what im doing
-	let a = req.params.field;
-	let b = req.params.value;
-	console.log(a + " | " + b)
-	res.send(a + " | " + b);
+	let field = req.params.field;
+	let value = req.params.value;
+	console.log(field + " | " + value)
+	console.log(typeof (field))
+	//res.send(field + " | " + value);
 	//the actula thing
-	
+	MongoClient.connect(url, function(err, db) {
+	  if (err) throw err;
+	  let dbo = db.db(nameOfDb);
+	  let query = { [field] : value };
+	  dbo.collection(infoCollection).find(query).toArray(function(err, result) {
+	    if (err) throw err;
+	    console.log(result);
+	    res.send(result);
+	    db.close();
+	  });
+	});
+
 }
 
 /*----------  sending defult page  ----------*/

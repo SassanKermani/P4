@@ -68,6 +68,27 @@ const search = (req, res) =>{
 
 }
 
+/*----------  creating a new document in the about collection  ----------*/
+const creatDoc = (req, res) =>{
+	
+	console.log('you hit the creatDoc route');
+	// console.log(req.body);
+	// res.send(req.body);
+	// // res.send("stuff");
+
+	MongoClient.connect(url, function(err, db) {
+	  if (err) throw err;
+	  let myobj = req.body;
+	  let dbo = db.db(nameOfDb);
+	  dbo.collection(infoCollection).insertOne(myobj, function(err, res) {
+	    if (err) throw err;
+	    console.log(req.body);
+	    res.send(req.body);
+	    db.close();
+	  });
+	});
+}
+
 /*----------  sending defult page  ----------*/
 const defultPage = (req, res) =>{
 	console.log('hit the defultPage route')
@@ -82,5 +103,6 @@ module.exports = {
 	index,
 	about,
 	search,
+	creatDoc,
 	defultPage
 }

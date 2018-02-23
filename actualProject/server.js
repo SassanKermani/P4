@@ -6,6 +6,11 @@
 const express = require('express');
 const app = express();
 
+// //body parser
+const bodyParser = require('body-parser');
+// app.use(bodyParser);
+app.use(bodyParser.json())
+
 //port
 const port = process.env.PORT || 3000;
 

@@ -6,6 +6,7 @@
 const express = require('express');
 const router = express.Router();
 
+
 //controllors
 const controllor = require('../controllers/mainController.js')
 
@@ -23,6 +24,9 @@ router.get('/about', controllor.about);
 
 /*----------  query search for info  ----------*/
 router.get('/search/:field/:value', controllor.search);
+
+/*----------  adding a new document to the inof collection  ----------*/
+router.post('/newDoc', controllor.creatDoc);
 
 /*----------  defult  ----------*/
 router.get('/*', controllor.defultPage);

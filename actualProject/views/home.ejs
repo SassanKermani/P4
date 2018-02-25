@@ -1,5 +1,31 @@
 <% include partials/haeder.ejs %>
 
+<h1> test </h1>
+
+<p> length </p>
+
+<%= result.length %>
+
+<p> ok some stuff </p>
+
+<div class="list-group">
+
+	<% for(let i = 0; i < result.length; i++){ %>
+
+		<% let tempVar = result[i]; %>
+
+		<% tempVar  %>
+
+		<% if(result[i].title != null){ %>
+			<a class="list-group-item list-group-item-action" href=" <%=  %> "> 
+				<%= JSON.stringify(result[i].title) %> 
+			</a>
+		<% } %>
+
+	<% } %>
+
+</div>
+
 
 
 <% include partials/footer.ejs %>

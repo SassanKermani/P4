@@ -20,6 +20,8 @@ router.get('/thisIsAnArbatrayThingForTeesting', function(req, res){
 	res.send("stuff");
 })
 
+router.get('/homePage', controllor.sendHomePage);
+
 /*=====  End of routs for gui  ======*/
 
 

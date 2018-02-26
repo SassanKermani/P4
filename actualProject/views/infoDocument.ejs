@@ -2,12 +2,23 @@
 
 <%= resultAll.length %>
 
-
+<br/>
 
 <script type="text/javascript">
 	console.log( "<%= resultAll.resultInfo._id %>" );
 </script>
 
-<p> stuff </p>
+<% for(let i = 0; i < resultAll.resultAbout.length; i++){ %>
+	
+	<% let tempVar = resultAll.resultAbout[i].feald %>
+	<%= tempVar %>
+	<br/>
+	<%= resultAll.resultInfo[tempVar] %>
+	<br/>
+	<br/>
+<% } %>
+
+
+<!-- ok this is where I am going to put all the info on the page -->
 
 <% include partials/footer.ejs %>

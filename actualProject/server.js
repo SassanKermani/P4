@@ -16,7 +16,7 @@ app.use(morgan('dev'));
 
 //ejs
 const ejs = require('ejs');
-app.set('views', './views')
+app.set('views', './views');
 app.engine('ejs', ejs.renderFile);
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));

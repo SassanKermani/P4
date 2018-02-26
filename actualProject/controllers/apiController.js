@@ -17,21 +17,6 @@ const aboutCollection = "about"
 =            						controllors		            				=
 ===============================================================================*/
 
-/*----------  index of all documents in collection  ----------*/
-const index = (req, res) =>{
-	//finding all
-	MongoClient.connect(url, function(err, db) {
-	  if (err) throw err;
-	  let dbo = db.db(nameOfDb);
-	  dbo.collection(infoCollection).find({}).toArray(function(err, result) {
-	    if (err) throw err;
-	    console.log(result);
-	    res.send(result)
-	    db.close();
-	  });
-	});
-}
-
 /*----------  get the doc form the about collection  ----------*/
 const about = (req, res) =>{
 	MongoClient.connect(url, function(err, db) {
@@ -69,8 +54,8 @@ const search = (req, res) =>{
 }
 
 /*----------  creating a new document in the about collection  ----------*/
-const creatDoc = (req, res) =>{
-	console.log('you hit the creatDoc route');
+const creatDocAbout = (req, res) =>{
+	console.log('you hit the creatDoc route about');
 	// console.log(req.body);
 	// res.send(req.body);
 	// res.send("stuff");
@@ -90,6 +75,44 @@ const creatDoc = (req, res) =>{
 	res.send(myobj);
 }
 
+/*----------  index of all documents in infoCollection  ----------*/
+const index = (req, res) =>{
+	//finding all
+	MongoClient.connect(url, function(err, db) {
+	  if (err) throw err;
+	  let dbo = db.db(nameOfDb);
+	  dbo.collection(infoCollection).find({}).toArray(function(err, result) {
+	    if (err) throw err;
+	    console.log(result);
+	    res.send(result)
+	    db.close();
+	  });
+	});
+}
+
+/*----------  creating a new document in the infoCollection  ----------*/
+const creatDocInfo = (req, res) =>{
+	console.log('you hit the creatDocInfo route');
+	// console.log(req.body);
+	// res.send(req.body);
+	// res.send("stuff");
+
+	let myobj = req.body;
+
+	MongoClient.connect(url, function(err, db) {
+		if (err) throw err;
+		let dbo = db.db(nameOfDb);
+		
+		dbo.collection(infoCollection).insertOne(myobj, function(err, res) {
+			if (err) throw err;
+			console.log(req.body);
+		db.close();
+		});
+	});
+	res.send(myobj);
+}
+
+
 /************************************************************
 *************************************************************
 *	this update beat you up and it could agean watch it 	*
@@ -104,7 +127,7 @@ const updateDoc = (req, res)=>{
 	MongoClient.connect(url, function(err, db) {
 		if (err) throw err;
 		let dbo = db.db(nameOfDb);
-		dbo.collection("chats").updateOne(myquery, newvalues, function(err, res) {
+		dbo.collection(infoCollection).updateOne(myquery, newvalues, function(err, res) {
 			if (err) throw err;
 			console.log("1 document updated");
 			db.close();
@@ -127,6 +150,7 @@ module.exports = {
 	index,
 	about,
 	search,
-	creatDoc,
+	creatDocAbout,
+	creatDocInfo,
 	updateDoc,
 }

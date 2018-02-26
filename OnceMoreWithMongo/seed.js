@@ -16,7 +16,7 @@ let url = `mongodb://localhost:27017/`;
 //data that im seeding 
 let myobj = { test: "testy test test", alsoTest: "This is a thing" };
 
-let data =[
+let infoData =[
 	{
 		title : "welcome",
 		body : "there can be a lot of text here"
@@ -30,6 +30,17 @@ let data =[
 		body : "bla bla bla bal bla bla bla bla "
 	}
 ];
+
+let aboutData = [
+	{
+		feald : "title",
+		value : "string"
+	},
+	{
+		feald : "body",
+		value : "string"
+	}
+]
 
 // //insert example
 // MongoClient.connect(url, function(err, db) {
@@ -71,16 +82,27 @@ let data =[
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-//the actual insert
+// //the actual insert INFO
+// MongoClient.connect(url, function(err, db){
+// 	if (err) throw err;
+// 	let dbo = db.db("P4");
+// 	dbo.collection("wiki").insertMany(infoData, function(err, res){
+//     	if (err) throw err;
+//     	console.log("data seeded " + res.insertedCount);
+//     	db.close();
+//   	});
+// });
+
+//the actual insert ABOUT
 MongoClient.connect(url, function(err, db){
 	if (err) throw err;
 	let dbo = db.db("P4");
-	dbo.collection("wiki").insertMany(data, function(err, res){
+	dbo.collection("about").insertMany(aboutData, function(err, res){
     	if (err) throw err;
     	console.log("data seeded " + res.insertedCount);
     	db.close();
   	});
-})
+});
 
 // //seeing whats in my db
 // MongoClient.connect(url, function(err, db) {

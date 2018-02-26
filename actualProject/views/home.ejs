@@ -1,27 +1,30 @@
 <% include partials/haeder.ejs %>
 
-<h1> test </h1>
+<br>
+<br>
 
-<p> length </p>
+<center>
+	<h1> Info Documents </h1>
+</center>
 
-<%= result.length %>
-
-<p> ok some stuff </p>
+<br>
+<br>
+<br>
 
 <div class="list-group">
 
 	<% for(let i = 0; i < result.length; i++){ %>
-
 		<% let tempVar = result[i]; %>
-
-		<% tempVar  %>
+		<% console.log("tempVar" + i)  %>
+		<% console.log(tempVar)  %>
 
 		<% if(result[i].title != null){ %>
-			<a class="list-group-item list-group-item-action" href=" <%=  %> "> 
-				<%= JSON.stringify(result[i].title) %> 
+			<a class="list-group-item list-group-item-action" href=" /infoCollection/<%= tempVar.title %> "> 
+				<% JSON.stringify(tempVar.title) %>
+				<%= tempVar.title %> - http://localhost:3000/infoCollection/<%= tempVar.title %>
 			</a>
+			
 		<% } %>
-
 	<% } %>
 
 </div>

@@ -26,8 +26,11 @@ router.get('/about', controllor.about);
 /*----------  query search for info  ----------*/
 router.get('/search/:field/:value', controllor.search);
 
-/*----------  adding a new document to the inof collection  ----------*/
-router.post('/newDoc', controllor.creatDoc);
+/*----------  adding a new document to the creatDocInfo  ----------*/
+router.post('/creatDocInfo', controllor.creatDocInfo);
+
+/*----------  adding a new document to the creatDocAbout  ----------*/
+router.post('/creatDocAbout', controllor.creatDocAbout);
 
 /*----------  update  ----------*/
 router.post('/updateDoc', controllor.updateDoc);

@@ -1,24 +1,82 @@
 <% include partials/haeder.ejs %>
 
-<%= resultAll.length %>
+<center>
 
-<br/>
+	<br/>
 
-<script type="text/javascript">
-	console.log( "<%= resultAll.resultInfo._id %>" );
-</script>
+	<!-- script type="text/javascript">
+		console.log( " <% resultAll.resultInfo._id %> " );
+	</script -->
 
-<% for(let i = 0; i < resultAll.resultAbout.length; i++){ %>
+	<div>
+
+		<% for(let i = 0; i < resultAll.resultAbout.length; i++){ %>
+			
+			<% let tempVar = resultAll.resultAbout[i].feald %>
+			<%= tempVar %>
+			<br/>
+			<% resultAll.resultInfo[tempVar] %>
+			<input type="text" value=" <%= resultAll.resultInfo[tempVar] %> " id="inputTag<%= [i] %>" >
+			<br/>
+			<br/>
+		<% } %>
+		
+		<button onclick="buildTheObject()"> submit edit </button>
+
+	</div>
 	
-	<% let tempVar = resultAll.resultAbout[i].feald %>
-	<%= tempVar %>
 	<br/>
-	<%= resultAll.resultInfo[tempVar] %>
-	<br/>
-	<br/>
-<% } %>
 
+	<a href="/homePage"> home </a>
 
-<!-- ok this is where I am going to put all the info on the page -->
+	<!-- ok this is where I am going to put all the info on the page -->
+
+</center>
+
+<script>
+
+	// let xhr = new XMLHttpRequest()
+	// xhr.open("POST", '/updateDocInfo', true);
+
+	// xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	// xhr.onreadystatechange = function() {//Call a function when the state changes.
+	//     if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+	//         // Request finished. Do processing here.
+	//     }
+	// }
+
+	function buildTheObject(){
+		let myObj = {
+
+			id : '<%= [resultAll.resultInfo._id] %>',
+
+			data: {
+				<% for(let i = 0; i < resultAll.resultAbout.length; i++){ %>
+
+					<% let tempVar = resultAll.resultAbout[i];  %>
+
+					<%= [tempVar.feald] %> : document.getElementById("inputTag<%= [i] %>").value,
+
+				<% } %>
+			}
+		}
+		console.log(myObj);
+
+		setTimeout( sendTheThing(myObj), 3000 );
+
+		//sendTheThing(myObj);
+
+		//location.reload();
+	}
+
+	function sendTheThing(obj){
+		let xhr = new XMLHttpRequest();
+		xhr.open("POST", "/updateDocInfo", true);
+		xhr.setRequestHeader("Content-type", "application/json");
+		xhr.send(JSON.stringify(obj));
+	}
+
+</script>
 
 <% include partials/footer.ejs %>

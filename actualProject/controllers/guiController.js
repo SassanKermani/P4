@@ -123,6 +123,41 @@ const sendAboutCollection = (req, res)=>{
 	});
 }
 
+/*----------  update Doc in Info collection  ----------*/
+const updateDocInfo = (req, res) =>{
+
+	// console.log(req.body);
+
+	// console.log("---");
+	// console.log("---");
+	// console.log("---");
+
+	let myquery = { _id: req.body.id };
+	let newvalues = { $set: req.body.data };
+	// let newvalues = req.body.data;
+	// var newvalues = { $set: {name: "Mickey", address: "Canyon 123" } };
+	// var newvalues = { '$set': { title: ' hello ', body: ' there can be a some text here ' } }
+
+	console.log("myquery");
+	console.log(myquery);
+
+	console.log("newvalues");
+	console.log( newvalues );
+	//var newvalues = { $set: { name: "Michael", address: "Canyon 123" } };
+
+	MongoClient.connect(url, function(err, db) {
+		if (err) throw err;
+		let dbo = db.db(nameOfDb);
+		dbo.collection(infoCollection).updateOne(myquery, newvalues, function(err, res) {
+			if (err) throw err;
+			console.log("1 document updated");
+			db.close();
+		});
+	});
+
+	//res.redirect(req.originalUrl);		//figure out how to to relode page
+}
+
 /*==========================  End of controllors  ==========================*/
 
 /*----------  exports  ----------*/
@@ -131,4 +166,5 @@ module.exports = {
 	documnetPage,
 	searchThoughInfoForTite,
 	sendAboutCollection,
+	updateDocInfo
 }

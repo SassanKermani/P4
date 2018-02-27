@@ -33,6 +33,9 @@ router.get('/searchThoughInfoForTite/:titleValue', controllor.searchThoughInfoFo
 /*----------  loop for all inof collections dcoument endpoints  ----------*/
 router.get('/infoCollection/:documentTitle', controllor.documnetPage);
 
+/*----------  update a document  ----------*/
+router.post('/updateDocInfo', controllor.updateDocInfo);
+
 /*=====  End of routs for gui  ======*/
 
 

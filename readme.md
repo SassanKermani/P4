@@ -1,0 +1,1 @@
+# go to the actualProject dir thats were the project is

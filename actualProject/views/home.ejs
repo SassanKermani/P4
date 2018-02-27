@@ -8,10 +8,21 @@
 </center>
 
 <br>
-<br>
+
+<center>
+	<input type="text">
+	<button> Search </button>
+</center>
+
 <br>
 
-<div class="list-group">
+<div hidden>
+	test
+</div>
+
+<br>
+
+<div class="list-group" >
 
 	<% for(let i = 0; i < result.length; i++){ %>
 		<% let tempVar = result[i]; %>
@@ -19,6 +30,10 @@
 		<% //console.log(tempVar)  %>
 
 		<% if(result[i].title != null){ %>
+			<% console.log(i) %>
+			<% //console.log(tempVar.title.slice(0, -1) ) %>
+			<% //tempVar.title = tempVar.title.slice(0, -1) %>
+
 			<a class="list-group-item list-group-item-action" href=" /infoCollection/<%= tempVar.title %> "> 
 				<% JSON.stringify(tempVar.title) %>
 				<%= tempVar.title %> - http://localhost:3000/infoCollection/<%= tempVar.title %>

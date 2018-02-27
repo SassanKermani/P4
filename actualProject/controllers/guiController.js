@@ -4,6 +4,7 @@
 
 //mongo stuff
 let MongoClient = require('mongodb').MongoClient;
+let objectid = require('mongodb').ObjectID;
 let url = `mongodb://localhost:27017/`;
 
 const nameOfDb = "P4";
@@ -66,6 +67,7 @@ const documnetPage = (req, res)=>{
 			let dbo = db.db(nameOfDb);
 			dbo.collection(aboutCollection).find({}).toArray(function(err, result) {
 				if (err) throw err;
+				
 				console.log(result);
 				resultAboutBit = result;
 				db.close();
@@ -132,8 +134,9 @@ const updateDocInfo = (req, res) =>{
 	// console.log("---");
 	// console.log("---");
 
-	let myquery = { _id: req.body.id };
-	let newvalues = { $set: req.body.data };
+	let myquery = { _id: new objectid( req.body.id ) };
+	// ObjectId("5a8f10fab31a3bcc5f606ab3")
+	let newvalues = {$set: req.body.data};
 	// let newvalues = req.body.data;
 	// var newvalues = { $set: {name: "Mickey", address: "Canyon 123" } };
 	// var newvalues = { '$set': { title: ' hello ', body: ' there can be a some text here ' } }
@@ -148,12 +151,13 @@ const updateDocInfo = (req, res) =>{
 	MongoClient.connect(url, function(err, db) {
 		if (err) throw err;
 		let dbo = db.db(nameOfDb);
-		dbo.collection(infoCollection).updateOne(myquery, newvalues, function(err, res) {
+		dbo.collection(infoCollection).updateOne(myquery, {$set: req.body.data}, function(err, res) {
 			if (err) throw err;
 			console.log("1 document updated");
 			db.close();
 		});
 	});
+
 
 	//res.redirect(req.originalUrl);		//figure out how to to relode page
 }

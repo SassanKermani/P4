@@ -82,27 +82,36 @@ let aboutData = [
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
-// //the actual insert INFO
-// MongoClient.connect(url, function(err, db){
-// 	if (err) throw err;
-// 	let dbo = db.db("P4");
-// 	dbo.collection("wiki").insertMany(infoData, function(err, res){
-//     	if (err) throw err;
-//     	console.log("data seeded " + res.insertedCount);
-//     	db.close();
-//   	});
-// });
+//the actual insert INFO
 
-//the actual insert ABOUT
 MongoClient.connect(url, function(err, db){
 	if (err) throw err;
 	let dbo = db.db("P4");
-	dbo.collection("about").insertMany(aboutData, function(err, res){
+	dbo.collection("wiki").insertMany(infoData, function(err, res){
     	if (err) throw err;
     	console.log("data seeded " + res.insertedCount);
     	db.close();
   	});
 });
+
+// MongoClient.connect(url, function(err, db){
+// 	if (err) throw err;
+// 	let dbo = db.db("P4");
+// 	dbo.collection("wiki").drop();
+// });
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+// //the actual insert ABOUT
+// MongoClient.connect(url, function(err, db){
+// 	if (err) throw err;
+// 	let dbo = db.db("P4");
+// 	dbo.collection("about").insertMany(aboutData, function(err, res){
+//     	if (err) throw err;
+//     	console.log("data seeded " + res.insertedCount);
+//     	db.close();
+//   	});
+// });
 
 // //seeing whats in my db
 // MongoClient.connect(url, function(err, db) {

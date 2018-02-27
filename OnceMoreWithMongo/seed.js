@@ -84,15 +84,15 @@ let aboutData = [
 
 //the actual insert INFO
 
-MongoClient.connect(url, function(err, db){
-	if (err) throw err;
-	let dbo = db.db("P4");
-	dbo.collection("wiki").insertMany(infoData, function(err, res){
-    	if (err) throw err;
-    	console.log("data seeded " + res.insertedCount);
-    	db.close();
-  	});
-});
+// MongoClient.connect(url, function(err, db){
+// 	if (err) throw err;
+// 	let dbo = db.db("P4");
+// 	dbo.collection("wiki").insertMany(infoData, function(err, res){
+//     	if (err) throw err;
+//     	console.log("data seeded " + res.insertedCount);
+//     	db.close();
+//   	});
+// });
 
 // MongoClient.connect(url, function(err, db){
 // 	if (err) throw err;

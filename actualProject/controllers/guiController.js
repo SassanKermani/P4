@@ -95,8 +95,6 @@ const searchThoughInfoForTite = (req, res)=>{
 	
 	let title = req.params.titleValue;
 
-	//res.send(title);
-
 	//finding all
 	MongoClient.connect(url, function(err, db) {
 	  if (err) throw err;
@@ -104,10 +102,12 @@ const searchThoughInfoForTite = (req, res)=>{
 	  dbo.collection(infoCollection).find( { title : { $regex: title + '.*'} } ).toArray(function(err, result) {
 	    if (err) throw err;
 	    console.log(result);
-	    res.send(result);
+	    //res.send(result);
+	    res.render('home.ejs', {result} );
 	    db.close();
 	  });
 	});
+
 
 }
 

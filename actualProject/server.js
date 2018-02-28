@@ -8,7 +8,10 @@ const app = express();
 
 //body parser
 const bodyParser = require('body-parser');
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({    //this is a thing
+  extended: true
+}));
 
 //morgan
 const morgan = require('morgan');

@@ -1,0 +1,36 @@
+<% include partials/haeder.ejs %>
+
+<center>
+	
+	<h1> make a new feild </h1>
+
+	<h4>
+		<a href="/homePage">
+			Info Documents
+		</a>
+	</h4>
+	
+	<form action="/makeANewAboutDocument" method="post">
+		
+		<br>
+		<label> Field </label>
+		<br>
+		<input name="feald" type="text">
+		
+		<div hidden>
+			<br>
+			<label for=""> value </label>
+			<br>
+			<input name="value" value="string" type="text">
+		</div>
+		
+		<br>
+		<br>
+
+		<input type="submit">
+
+	</form>
+
+</center>
+
+<% include partials/footer.ejs %>

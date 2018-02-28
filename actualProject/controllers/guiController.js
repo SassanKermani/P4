@@ -42,6 +42,7 @@ const sendHomePage = (req, res)=>{
 		getAbout();
 	}
 
+	/*----------  getAbout  ----------*/
 	let getAbout = ()=>{
 		MongoClient.connect(url, function(err, db) {
 			if (err) throw err;
@@ -260,6 +261,72 @@ const updateDocInfo = (req, res) =>{
 	//res.redirect(req.originalUrl);		//figure out how to to relode page
 }
 
+/*----------  makeANewInfoDocument  ----------*/
+const makeANewInfoDocument = (req, res)=>{
+
+	MongoClient.connect(url, function(err, db) {
+		if (err) throw err;
+		let dbo = db.db(nameOfDb);
+		dbo.collection(aboutCollection).find({}).toArray(function(err, result) {
+			if (err) throw err;
+			
+			console.log(result);
+			res.render('makeANewInfoDocument.ejs', {result});
+
+			db.close();
+		});
+	});
+
+	//res.render('makeANewInfoDocument.ejs');
+}
+
+/*----------  makeANewInfoDocumentPartTwo  ----------*/
+const makeANewInfoDocumentPartTwo = (req, res)=>{
+
+	console.log("req.body");
+	console.log(req.body);
+
+	let myobj = req.body;
+
+	MongoClient.connect(url, function(err, db) {
+	  if (err) throw err;
+	  let dbo = db.db(nameOfDb);
+	  dbo.collection(infoCollection).insertOne(myobj, function(err, res) {
+	    if (err) throw err;
+	    console.log("1 document inserted");
+	    db.close();
+	  });
+	});
+
+	res.redirect('/homePage');
+
+}
+
+/*----------  makeANewAboutDocument  ----------*/
+const makeANewAboutDocument = (req, res)=>{
+	res.render('makeANewAboutDocument.ejs');
+}
+
+/*----------  makeANewAboutDocumentPartTwo  ----------*/
+const makeANewAboutDocumentPartTwo = (req, res)=>{
+	console.log("req.body");
+	console.log(req.body);
+
+	let myobj = req.body;
+
+	MongoClient.connect(url, function(err, db) {
+	  if (err) throw err;
+	  let dbo = db.db(nameOfDb);
+	  dbo.collection(aboutCollection).insertOne(myobj, function(err, res) {
+	    if (err) throw err;
+	    console.log("1 document inserted");
+	    db.close();
+	  });
+	});
+
+	res.redirect('/homePage');
+}
+
 /*==========================  End of controllors  ==========================*/
 
 /*----------  exports  ----------*/
@@ -269,5 +336,9 @@ module.exports = {
 	searchThoughInfoForTite,
 	sendAboutCollection,
 	updateDocInfo,
-	searchThoughInfoForAnything
+	searchThoughInfoForAnything,
+	makeANewInfoDocument,
+	makeANewInfoDocumentPartTwo,
+	makeANewAboutDocument,
+	makeANewAboutDocumentPartTwo
 }

@@ -1,0 +1,33 @@
+<% include partials/haeder.ejs %>
+
+<center>
+
+	<h1> make a new page </h1>
+
+	<h4>
+		<a href="/homePage">
+			Info Documents
+		</a>
+	</h4>
+
+	<form action="/makeANewInfoDocument" method="post" >
+
+		<% for(let i = 0; i < result.length; i++){ %>
+
+			<label> <%= result[i].feald %> </label>
+			<br/>
+			<input type="text" name="<%= result[i].feald %>"></input>
+			<br/>
+
+		<% } %>
+		
+		<br>
+		
+		<button type="submit"> submit </button>
+
+	</form>
+
+</center>
+
+
+<% include partials/footer.ejs %>

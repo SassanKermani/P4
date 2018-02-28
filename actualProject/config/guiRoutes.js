@@ -39,6 +39,22 @@ router.get('/infoCollection/:documentTitle', controllor.documnetPage);
 /*----------  update a document  ----------*/
 router.post('/updateDocInfo', controllor.updateDocInfo);
 
+/*----------  make A New Info Document  ----------*/
+router.get('/makeANewInfoDocument', controllor.makeANewInfoDocument);
+
+/*----------  make A New Info Document  ----------*/
+router.post('/makeANewInfoDocument', controllor.makeANewInfoDocumentPartTwo);
+
+//stuff im working on 
+
+/*----------  make A New Info Document  ----------*/
+router.get('/makeANewAboutDocument', controllor.makeANewAboutDocument);
+
+/*----------  make A New About Document  ----------*/
+router.post('/makeANewAboutDocument', controllor.makeANewAboutDocumentPartTwo);
+
+//stuff im working on 
+
 /*=====  End of routs for gui  ======*/
 
 

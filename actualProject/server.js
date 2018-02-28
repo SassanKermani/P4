@@ -38,8 +38,12 @@ const guiRouter = require('./config/guiRoutes.js');
 app.use(apiRouter);
 app.use(guiRouter);
 
+app.get('/', function(req, res){
+	res.redirect('/homePage');
+})
+
 app.get('/*', /*controllor.defultPage*/ function(req, res){
-	res.send('not a valid page');
+	res.render('notAValidPage.ejs');
 });
 
 /*----------  app listen  ----------*/

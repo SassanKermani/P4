@@ -5,7 +5,7 @@
 //mongo stuff
 let MongoClient = require('mongodb').MongoClient;
 let objectid = require('mongodb').ObjectID;
-let url = `mongodb://localhost:27017/`;
+let url = process.env.MONGODB_URI || `mongodb://localhost:27017/`;
 
 const nameOfDb = "P4";
 const infoCollection = "wiki"

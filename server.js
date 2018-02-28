@@ -49,4 +49,4 @@ app.get('/*', /*controllor.defultPage*/ function(req, res){
 /*----------  app listen  ----------*/
 app.listen(port, function(){
 	console.log(`server is up at ${port}`);
-})
+});

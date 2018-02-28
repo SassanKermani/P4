@@ -27,8 +27,11 @@ router.get('/homePage', controllor.sendHomePage);
 /*----------  sending all documents in about collection  ----------*/
 router.get('/sendAboutCollection', controllor.sendAboutCollection);
 
-/*----------  search though info collection for title  ----------*/
+/*----------  search though info collection by title  ----------*/
 router.get('/searchThoughInfoForTite/:titleValue', controllor.searchThoughInfoForTite);
+
+/*----------  search though info collection by any  ----------*/							//working on it
+router.get('/searchThoughInfoForAnything/:field/:value', controllor.searchThoughInfoForAnything);
 
 /*----------  loop for all inof collections dcoument endpoints  ----------*/
 router.get('/infoCollection/:documentTitle', controllor.documnetPage);

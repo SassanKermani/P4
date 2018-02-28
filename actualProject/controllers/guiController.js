@@ -18,20 +18,60 @@ const aboutCollection = "about"
 ===============================================================================*/
 
 const sendHomePage = (req, res)=>{
-	//limiting the filds that you see
-	MongoClient.connect(url, function(err, db) {
-		if (err) throw err;
-		let dbo = db.db(nameOfDb);
-		dbo.collection(infoCollection).find({}).project({ title: 1, _id: 0 }).toArray(function(err, result) {
-			if (err) throw err;
-			console.log(result);
-			res.render('home.ejs', {result} );
-			//res.send(result);
-			db.close();
+
+	let resultInfoBit;
+	let resultAboutBit;
+	let resultAll;
+
+	let getInfo = ()=>{
+		//finds the first one
+		MongoClient.connect(url, function(err, db) {
+		  if (err) throw err;
+
+		  let dbo = db.db(nameOfDb);
+		  let query = { title: req.params.documentTitle };
+
+		  dbo.collection(infoCollection).find({}).project({ title: 1, _id: 0 }).toArray(function(err, result){
+		    if (err) throw err;
+		    console.log(result);
+		    resultInfoBit = result;
+		    db.close();
+		  });
 		});
-	});
+
+		getAbout();
+	}
+
+	let getAbout = ()=>{
+		MongoClient.connect(url, function(err, db) {
+			if (err) throw err;
+			let dbo = db.db(nameOfDb);
+			dbo.collection(aboutCollection).find({}).toArray(function(err, result) {
+				if (err) throw err;
+				
+				console.log(result);
+				resultAboutBit = result;
+				db.close();
+
+				resultAll = {
+					"resultInfo" : resultInfoBit, 
+					"resultAbout" : resultAboutBit
+				};
+
+				console.log( "resultAll" );
+				console.log(resultAll);
+
+				res.render('home.ejs', {resultAll} );
+
+			});
+		});
+	}
+
+	getInfo();
+
 };
 
+/*----------  documnetPage  ----------*/
 const documnetPage = (req, res)=>{
 
 	////////////////////////////////////////////////////////////////////////////////
@@ -90,7 +130,7 @@ const documnetPage = (req, res)=>{
 
 }
 
-/*----------  search though info for tite  ----------*/				//this should prablay go in the api spot too
+/*----------  search though info for tite  ----------*/				//this is real broken right now
 const searchThoughInfoForTite = (req, res)=>{
 	
 	let title = req.params.titleValue;
@@ -107,7 +147,65 @@ const searchThoughInfoForTite = (req, res)=>{
 	    db.close();
 	  });
 	});
+}
 
+/*----------  searchThoughInfoForAnything  ----------*/
+const searchThoughInfoForAnything = (req, res)=>{
+	let field = req.params.field;
+	let value = req.params.value;
+
+	let query = { [field] : { $regex: [value] + '.*'} }
+
+
+	let resultInfoBit;
+	let resultAboutBit;
+	let resultAll;
+
+	let getInfo = ()=>{
+		//finds the first one
+		MongoClient.connect(url, function(err, db) {
+		  if (err) throw err;
+
+		  let dbo = db.db(nameOfDb);
+		  //let query = { title: req.params.documentTitle };
+
+		  dbo.collection(infoCollection).find(query).project({ title: 1, _id: 0 }).toArray(function(err, result){
+		    if (err) throw err;
+		    console.log(result);
+		    resultInfoBit = result;
+		    db.close();
+		  });
+		});
+
+		getAbout();
+	}
+
+	let getAbout = ()=>{
+		MongoClient.connect(url, function(err, db) {
+			if (err) throw err;
+			let dbo = db.db(nameOfDb);
+			dbo.collection(aboutCollection).find({}).toArray(function(err, result) {
+				if (err) throw err;
+				
+				console.log(result);
+				resultAboutBit = result;
+				db.close();
+
+				resultAll = {
+					"resultInfo" : resultInfoBit, 
+					"resultAbout" : resultAboutBit
+				};
+
+				console.log( "resultAll" );
+				console.log(resultAll);
+
+				res.render('home.ejs', {resultAll} );
+
+			});
+		});
+	}
+
+	getInfo();
 
 }
 
@@ -170,5 +268,6 @@ module.exports = {
 	documnetPage,
 	searchThoughInfoForTite,
 	sendAboutCollection,
-	updateDocInfo
+	updateDocInfo,
+	searchThoughInfoForAnything
 }

@@ -30,6 +30,7 @@ const about = (req, res) =>{
 	  });
 	});
 }
+
 /*----------  searching for a doc in the about collection  ----------*/
 const search = (req, res) =>{
 	//making sure i know what im doing

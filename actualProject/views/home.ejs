@@ -13,21 +13,42 @@
 
 <br>
 
-<center>
+<center hidden>
 	<input type="text" id="serchPram">
-	<button onclick="seeSearch()"> search </button>
+	<button onclick="seeSearch()"> search by title </button>
 </center>
 
 <br>
 
+<center >
+	<div>
+		<label for="sel1">search by:</label>
+		<select id="mySelect">
+			
+			<% for(let i = 0; i < resultAll.resultAbout.length; i++){ %>
+
+			<option> <%= resultAll.resultAbout[i].feald %> </option>
+			
+			<% } %>
+
+		</select>
+		<input type="text" id="otherSerchPram">
+		<button onclick="seeBetterSearch()"> search </button>
+		<br>
+	</div> 
+</center>
+
+<br>
+<br>
+
 <div class="list-group" >
 
-	<% for(let i = 0; i < result.length; i++){ %>
-		<% let tempVar = result[i]; %>
+	<% for(let i = 0; i < resultAll.resultInfo.length; i++){ %>
+		<% let tempVar = resultAll.resultInfo[i]; %>
 		<% //console.log("tempVar" + i)  %>
 		<% //console.log(tempVar)  %>
 
-		<% if(result[i].title != null){ %>
+		<% if(resultAll.resultInfo[i].title != null){ %>
 			<% console.log(i) %>
 			<% //console.log(tempVar.title.slice(0, -1) ) %>
 			<% //tempVar.title = tempVar.title.slice(0, -1) %>
@@ -56,6 +77,31 @@
 		// xhr.send();
 
 		window.location.href = "/searchThoughInfoForTite/" + serchPram;
+	}
+
+	function seeBetterSearch(){
+
+		let iterator = document.getElementById("mySelect").selectedIndex;
+
+		let searchBy = document.getElementsByTagName("option")[iterator].value;
+
+		//let otherSerchPram = ""
+
+		let otherSerchPram = document.getElementById("otherSerchPram").value;
+
+		//otherSerchPram
+
+		console.log (searchBy);
+		console.log (otherSerchPram);
+
+		if(otherSerchPram == null || otherSerchPram == ""){
+			console.log("if");
+			window.location.href = "/homePage";
+		}else{
+			console.log("else");
+			window.location.href = "/searchThoughInfoForAnything/" + searchBy + "/" + otherSerchPram;
+		}
+
 	}
 
 </script>
